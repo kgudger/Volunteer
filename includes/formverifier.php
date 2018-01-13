@@ -10,7 +10,7 @@
  * @version    Release: 1.0
  * @package    Volunteer Now!
  */
-require_once('recaptcha-php-1.11/recaptchalib.php');
+//require_once('recaptcha-php-1.11/recaptchalib.php');
 
 /**
  * Parent class for formlib implements error functions.
@@ -368,20 +368,33 @@ class FormVerifier {
 	 * @note: should be is isValidCaptcha
      */
 	function isInvalidCaptcha($field,$msg) {
-		$privatekey = "6Le9yfASAAAAAIHfABjx9vRpI-9k48A9zk7RD9On";
-		$resp = recaptcha_check_answer ($privatekey,
+//		$privatekey = "6Le9yfASAAAAAIHfABjx9vRpI-9k48A9zk7RD9On";
+		$secret = "6Lesg0AUAAAAAAcWGBRHISZYHmh9vL3cW7Y83dy2";
+		if(isset($_POST['g-recaptcha-response']) && !empty($_POST['g-recaptcha-response'])) {
+		        $verifyResponse = file_get_contents('https://www.google.com/recaptcha/api/siteverify?secret='.$secret.'&response='.$_POST['g-recaptcha-response']);
+		        $responseData = json_decode($verifyResponse);
+		        if($responseData->success) {
+				return true ;
+			} else {
+	   	    		$this->addError($field, "", $msg);
+				return false;
+			}
+		} else {
+	   	    $this->addError($field, "", $msg);
+		    return false;
+		}
+
+/*		$resp = recaptcha_check_answer ($privatekey,
                                 $_SERVER["REMOTE_ADDR"],
                                 $_POST["recaptcha_challenge_field"],
                                 $_POST["recaptcha_response_field"]);
-
-		if ($resp->is_valid) {
+	if ($resp->is_valid) {
 			return true; 
   		} else {
 			// What happens when the CAPTCHA was entered incorrectly
-//		    $msg .= "(reCAPTCHA said: " . $resp->error . ")";
 	   	    $this->addError($field, "", $msg);
     	    return false;
-		}
-	}
+		} */
+	} 
 }	
 ?>

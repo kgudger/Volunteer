@@ -76,7 +76,7 @@ function processData(&$uid) {
 		$addr2 	= $this->formL->getValue("addr2");
 		$city   = $this->formL->getValue("city");
 		$state  = $this->formL->getValue("state");
-		$zipc   = $this->formL->getValue("zip");
+		$zipc   = $this->formL->getValue("zipc");
 
 		$sql = "INSERT INTO 
 				NonProfits(Name, ContLName, ContFName, email, Phone,
@@ -220,11 +220,16 @@ Further Information (Non-Profits Only)</td></tr>
 </td>
 </tr>
 <tr><td class="inputcell">
-<?php
-require_once('recaptcha-php-1.11/recaptchalib.php');
+<script src="https://www.google.com/recaptcha/api.js" async defer></script>
+<div class="captcha_wrapper">
+	<div class="g-recaptcha" data-sitekey="6Lesg0AUAAAAAI1LPzdtTX-_MnOL7-UPfVom25og"></div>
+</div>
+
+<?php /*
+//require_once('recaptcha-php-1.11/recaptchalib.php');
 $publickey = "6Le9yfASAAAAAD3k437b9QzxPYlPfgln_nhIP-M3"; 
 	// got this from the signup page
-echo recaptcha_get_html($publickey,"",true);
+echo recaptcha_get_html($publickey,"",true); */
 ?>
 </td></tr>
 </table>

@@ -80,7 +80,7 @@ class MainPage {
 	function checkForm() {
 		if (!empty($this->checkArray)) {
 			foreach ($this->checkArray as $checkval) {
-				$this->formL->$checkval[0](
+				$this->formL->{$checkval[0]}(
 								$checkval[1],$checkval[2]);
 			}
 		}

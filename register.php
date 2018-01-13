@@ -49,7 +49,7 @@ if (!empty($_REQUEST["nonp"]) && ($_REQUEST["nonp"] == "1")) {
 /// a new instance of the derived class (from MainPage)
 $indP = new registerPage($db,$sessvar,$checkArray) ;
 /// and ... start it up!  
-$indP->main("New Member Sign Up Page", $uid, "index.php");
+$indP->main("New Member Sign Up Page", $uid, "index.php", "index.php");
 /** There are 2 choices for redirection dependent on the sessvar
  *  above which one gets taken.*/
 ?>
