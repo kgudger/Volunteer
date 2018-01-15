@@ -48,8 +48,7 @@ function processData(&$uid) {
 	$phash = crypt($pword,$salt);
 
 	if ($this->formL->getValue("nonp") == 0) { // individual sign up
-		$_SESSION['np']="no";
-		$this->sessnp = "no" ;
+                $sess_np = "no";
 		$prefs = $this->formL->getValue("prefs");
 		// Process the verified data here.
 		$sql = "INSERT INTO 
@@ -69,8 +68,7 @@ function processData(&$uid) {
 		}
 	}
 	else {
-		$_SESSION['np']="yes";
-		$this->sessnp = "yes" ;
+                $sess_np = "yes";
 		$npname = $this->formL->getValue("npname");
 		$addr1  = $this->formL->getValue("addr1");
 		$addr2 	= $this->formL->getValue("addr2");
@@ -87,7 +85,17 @@ function processData(&$uid) {
 		$result = $this->db->prepare($sql);
 		$result->execute(array($npname, $lname,$fname,$email,$phone,
 						 $addr1,$addr2,$city,$state,$zipc));
+		$vid = $this->db->lastInsertId(); // should be last inserted NPID
 	}
+        if (!session_id()) session_start();
+        $uid=$vid;
+        $_SESSION['user']=$fname;
+        $_SESSION['np']=$sess_np;
+        $this->sessnp = $sess_np ;
+        $_SESSION["rid"] = setReadID($uid) ; // encrypts uid
+        // and returns real random number
+        $_SESSION["uid"] = $uid ; // puts encrypted uid in session
+
 }
 
 /**

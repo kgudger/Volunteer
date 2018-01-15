@@ -28,7 +28,7 @@
 	<section class="intro" id="vn-intro">
 		<header class="headstyle" role="banner">
 			<img src="images/vol-happy.jpg" alt="Happy Volunteers!" width=33%><img src="images/vol-hands.jpg" alt="Happy Volunteers!" width=33%><img src="images/volunteers_happy.jpg" alt="Happy Volunteers!" width=33%><br><br>
-			<h1>Volunteer Now!</h1>
+			<a href="index.php"><h1>Volunteer Now!</h1></a>
 			<h2><?php print "$title";?></h2>
 		</header>
 
