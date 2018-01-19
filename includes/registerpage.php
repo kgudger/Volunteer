@@ -162,13 +162,14 @@ function showContent($title, &$uid) {
 <td class="inputcell">
 <?php 
 $radiolist = array("Individual"=>0,"Non Profit"=>1);
-echo $this->formL->makeRadioGroup('nonp', $radiolist, 0);?>
+echo $this->formL->makeRadioGroup('nonp', $radiolist,"");?>
 </td>
 </tr>
-
+</table>
+<table id=ind_tab>
 <tr>
 <td class="labelcell">
-<?php echo $this->formL->formatOnError('prefs','Job Preferences (Individual Only)') . "</td></tr><tr><td></td>";
+<?php echo $this->formL->formatOnError('prefs','Job Preferences (Individual Only)') . "</td></tr><tr>";
 
 	$sql = "SELECT PrefID, Preference FROM 
 			JobTypes";
@@ -178,11 +179,13 @@ echo $this->formL->makeRadioGroup('nonp', $radiolist, 0);?>
         echo '<td class="inputcell">' ;
 		$checkarray = array($row["Preference"]=>$row["PrefID"]);
 		echo $this->formL->makeCheckBoxes("prefs", $checkarray);
-		echo '</td></tr><tr><td></td>';
+		echo '</td></tr><tr>';
 	}
 ?>
 </tr>
 <tr>
+</table>
+<table id=nonp_tab>
 <td class="labelcell">
 Further Information (Non-Profits Only)</td></tr>
 <tr>
@@ -227,7 +230,8 @@ Further Information (Non-Profits Only)</td></tr>
 <?php echo $this->formL->makeTextInput('zipc');?>
 </td>
 </tr>
-<tr><td class="inputcell">
+</table>
+<div class="inputcell">
 <script src="https://www.google.com/recaptcha/api.js" async defer></script>
 <div class="captcha_wrapper">
 	<div class="g-recaptcha" data-sitekey="6Lesg0AUAAAAAI1LPzdtTX-_MnOL7-UPfVom25og"></div>
@@ -239,8 +243,7 @@ $publickey = "6Le9yfASAAAAAD3k437b9QzxPYlPfgln_nhIP-M3";
 	// got this from the signup page
 echo recaptcha_get_html($publickey,"",true); */
 ?>
-</td></tr>
-</table>
+</div>
 </fieldset>
 
 <p id="formbuttons">
@@ -248,7 +251,31 @@ echo recaptcha_get_html($publickey,"",true); */
 </p>
 </form>
 </div>
-
+<script type='text/javascript'>
+	window.onload=function() {
+		var chkd = document.getElementsByName("nonp");
+		for (var i = 0, len = chkd.length; i < len; i++) {
+			chkd[i].setAttribute("onchange", "Toggle_tables()");
+		}
+		Toggle_tables();
+	};
+	function Toggle_tables(){
+		is_checked = document.getElementsByName("nonp");
+		if (is_checked[0].checked) {
+			//alert("Button 0 is checked");
+			document.getElementById("ind_tab").style.display = "unset";
+		} else {
+			document.getElementById("ind_tab").style.display = "none";
+		}
+		if (is_checked[1].checked) {
+			//alert("Button 1 is checked");
+			document.getElementById("nonp_tab").style.display = "unset";
+		} else {
+			document.getElementById("nonp_tab").style.display = "none";
+		}
+	};
+	
+</script>
 <?php
 $this->formL->finish();
 }

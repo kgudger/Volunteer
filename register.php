@@ -22,6 +22,7 @@ include_once("includes/registerpage.php");
 /** The checkArray defines what checkForm does so you don't
  *  have to overwrite it in the derived class. */
 $checkArray = array(
+	array("isEmpty","nonp", "Please check one option."),
 	array("isEmpty","fname", "Please enter your first name."),
 	array("isEmpty","lname", "Please enter your last name."),
 	array("isInvalidEmail","email", "Please enter your email address."),
